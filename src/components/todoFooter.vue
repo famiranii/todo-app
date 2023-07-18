@@ -1,0 +1,5 @@
+<template>
+    <footer>
+        <p>Drag and drop to reorder list</p>
+    </footer>
+</template>
