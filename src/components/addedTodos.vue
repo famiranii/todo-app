@@ -1,7 +1,8 @@
 <template>
     <li class="card">
         <div class="cb-container">
-            <input :checked="todo.isCompleted ? true : null" type="checkbox" class="cb-input">
+            <input v-model="isCompleted" @click="handleCompeleted" :checked="todo.isCompleted ? true : null" type="checkbox"
+                class="cb-input">
             <div class="check"></div>
         </div>
         <div class="item">{{ todo.title }}</div>
@@ -17,17 +18,27 @@ export default {
     props: {
         todo: Object
     },
-
+    data() {
+        return {
+            isCompleted: this.todo.isCompleted,
+            newTodo: this.todo
+        }
+    },
     methods: {
         deleteItemIsClicked() {
-            axios.delete(`http://localhost:3000/todos/${this.todo.id}`)
+            this.$emit('deleteItemIsClicked', this.todo.id)
+        },
+        handleCompeleted() {
+            this.isCompleted = !this.isCompleted
+            this.newTodo.isCompleted = this.isCompleted
+            axios.put(`http://localhost:3000/todos/${this.todo.id}`, this.newTodo)
                 .then(response => {
                     console.log(response);
-                    console.log('Item deleted successfully');
                 })
                 .catch(error => {
-                    console.error(error.message);
+                    console.error(error);
                 });
+
         }
     }
 }

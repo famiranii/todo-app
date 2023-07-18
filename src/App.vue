@@ -13,7 +13,7 @@
     </div>
 
     <ul class="todos">
-      <addedTodos v-for="(todo, index) in todos" :key="index" :todo="todo" />
+      <addedTodos @deleteItemIsClicked="deleteItemIsClicked" v-for="(todo, index) in todos" :key="index" :todo="todo" />
     </ul>
 
     <div class="card stat">
@@ -55,16 +55,27 @@ export default {
       const todo = { id: this.counter, title: this.title, isCompleted: false }
       this.todos.push(todo)
       this.title = ''
+    },
+    deleteItemIsClicked(id) {
+      this.todos = this.todos.filter(todo => todo.id !== id)
+      axios.delete(`http://localhost:3000/todos/${id}`)
+        .then(response => {
+          console.log(response);
+        })
+        .catch(error => {
+          console.error(error.message);
+        });
+
     }
+
   },
   created() {
     axios.get('http://localhost:3000/todos')
       .then(response => {
         response.data.forEach(element => {
-          console.log(element);
           this.todos.push(element)
         });
-        
+
       })
       .catch(error => {
         console.error(error);
