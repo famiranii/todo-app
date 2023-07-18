@@ -58,9 +58,13 @@ export default {
     }
   },
   created() {
-    axios.get('http://localhost:3000/users')
+    axios.get('http://localhost:3000/todos')
       .then(response => {
-        console.log(response.data);
+        response.data.forEach(element => {
+          console.log(element);
+          this.todos.push(element)
+        });
+        
       })
       .catch(error => {
         console.error(error);
