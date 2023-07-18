@@ -35,6 +35,7 @@
 import todoHeader from '../src/components/todoHeader.vue';
 import todoFooter from '../src/components/todoFooter.vue';
 import addedTodos from '../src/components/addedTodos.vue';
+import axios from 'axios'
 export default {
   components: {
     todoHeader,
@@ -55,6 +56,15 @@ export default {
       this.todos.push(todo)
       this.title = ''
     }
+  },
+  created() {
+    axios.get('http://localhost:3000/users')
+      .then(response => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        console.error(error);
+      });
   },
 }
 </script>
