@@ -1,17 +1,21 @@
 <template>
-  <myHeader></myHeader>
+  <todoHeader></todoHeader>
+
   <main>
     <div class="card add">
       <div class="cb-container">
-        <button id="add-btn">+</button>
+        <button @click="addBtnClicked" id="add-btn">+</button>
       </div>
       <div class="txt-container">
-        <input type="text" class="txt-input" placeholder="Create a new todo..." spellcheck="false" autocomplete="off" />
+        <input v-model="title" type="text" class="txt-input" placeholder="Create a new todo..." spellcheck="false"
+          autocomplete="off" />
       </div>
     </div>
+
     <ul class="todos">
-      <addedTodos v-for="(todo, index) in todos" :key="index" />
+      <addedTodos v-for="(todo, index) in todos" :key="index" :todo="todo" />
     </ul>
+
     <div class="card stat">
       <p class="corner"><span id="items-left">0</span> items left</p>
       <div class="filter">
@@ -28,18 +32,28 @@
 </template>
 
 <script>
-import myHeader from '../src/components/todoHeader.vue';
+import todoHeader from '../src/components/todoHeader.vue';
 import todoFooter from '../src/components/todoFooter.vue';
 import addedTodos from '../src/components/addedTodos.vue';
 export default {
   components: {
-    myHeader,
+    todoHeader,
     todoFooter,
     addedTodos
   },
   data() {
     return {
-      todos:[]
+      title: '',
+      todos: [],
+      counter: 0,
+    }
+  },
+  methods: {
+    addBtnClicked() {
+      this.counter++
+      const todo = { id: this.counter, title: this.title, isCompleted: false }
+      this.todos.push(todo)
+      this.title = ''
     }
   },
 }
