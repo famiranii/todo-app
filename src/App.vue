@@ -7,8 +7,8 @@
         <button @click="addBtnClicked" id="add-btn">+</button>
       </div>
       <div class="txt-container">
-        <input v-model="title" type="text" class="txt-input" placeholder="Create a new todo..." spellcheck="false"
-          autocomplete="off" />
+        <input @keypress.enter="addBtnClicked" v-model="title" type="text" class="txt-input"
+          placeholder="Create a new todo..." spellcheck="false" autocomplete="off" />
       </div>
     </div>
 
@@ -24,7 +24,7 @@
         <button id="completed">Completed</button>
       </div>
       <div class="corner">
-        <button id="clear-completed">Clear Completed</button>
+        <button @click="clearCompleted" id="clear-completed">Clear Completed</button>
       </div>
     </div>
   </main>
@@ -46,15 +46,21 @@ export default {
     return {
       title: '',
       todos: [],
-      counter: 0,
     }
   },
   methods: {
     addBtnClicked() {
-      this.counter++
-      const todo = { id: this.counter, title: this.title, isCompleted: false }
+      const id = Math.floor(Math.random() * 100)
+      const todo = { id: id, title: this.title, isCompleted: false }
       this.todos.push(todo)
       this.title = ''
+      axios.post('http://localhost:3000/todos', todo)
+        .then(response => {
+          console.log(response);
+        })
+        .catch(error => {
+          console.log(error);
+        })
     },
     deleteItemIsClicked(id) {
       this.todos = this.todos.filter(todo => todo.id !== id)
@@ -65,7 +71,23 @@ export default {
         .catch(error => {
           console.error(error.message);
         });
-
+    },
+    clearCompleted() {
+      var newTodos = this.todos.filter(todo => todo.isCompleted == true)
+      var ids = newTodos.map(element => {
+        return element.id
+      });
+      for (let i = 0; i < ids.length; i++) {
+        const id = ids[i]
+        axios.delete(`http://localhost:3000/todos/${id}`)
+          .then(response => {
+            console.log(response);
+          })
+          .catch(error => {
+            console.error(error.message);
+          });
+        this.todos = this.todos.filter(todo => todo.id !== id)
+      }
     }
 
   },
