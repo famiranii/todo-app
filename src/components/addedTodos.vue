@@ -1,7 +1,7 @@
 <template>
     <li class="card">
-        <div class="cb-container">
-            <input v-model="isCompleted" @click="handleCompeleted" :checked="todo.isCompleted ? true : null" type="checkbox"
+        <div @click="handleCompeleted"  class="cb-container">
+            <input v-model="isCompleted" :checked="todo.isCompleted ? true : null" type="checkbox"
                 class="cb-input">
             <div class="check"></div>
         </div>

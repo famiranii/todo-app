@@ -13,15 +13,16 @@
     </div>
 
     <ul class="todos">
-      <addedTodos @deleteItemIsClicked="deleteItemIsClicked" v-for="(todo, index) in todos" :key="index" :todo="todo" />
+      <addedTodos @deleteItemIsClicked="deleteItemIsClicked" v-for="(todo, index) in filteredTodo" :key="index" :todo="todo"
+        draggable="true" @dragover.prevent @dragstart="dragstart(index)" @drop="drop(index)" />
     </ul>
 
     <div class="card stat">
-      <p class="corner"><span id="items-left">0</span> items left</p>
+      <p class="corner"><span id="items-left">{{ isCompletedCount }}</span> items left</p>
       <div class="filter">
-        <button id="all" class="on">All</button>
-        <button id="active">Active</button>
-        <button id="completed">Completed</button>
+        <button :class="{ on: showTodos == 'all' }" @click="this.showTodos = 'all'">All</button>
+        <button :class="{ on: showTodos == 'active' }" @click="this.showTodos = 'active'">Active</button>
+        <button :class="{ on: showTodos == 'complete' }" @click="this.showTodos = 'complete'">Completed</button>
       </div>
       <div class="corner">
         <button @click="clearCompleted" id="clear-completed">Clear Completed</button>
@@ -46,6 +47,22 @@ export default {
     return {
       title: '',
       todos: [],
+      draggedTodo: -1,
+      showTodos: "all"
+    }
+  },
+  computed: {
+    isCompletedCount() {
+      return this.todos.filter(todo => todo.isCompleted == false).length;
+    },
+    filteredTodo() {
+      if (this.showTodos === 'all') {
+        return this.todos
+      }else if (this.showTodos==='active') {
+        return this.todos.filter(todo=>todo.isCompleted==true)
+      }else{
+        return this.todos.filter(todo=>todo.isCompleted==false)
+      }
     }
   },
   methods: {
@@ -88,7 +105,14 @@ export default {
           });
         this.todos = this.todos.filter(todo => todo.id !== id)
       }
-    }
+    },
+    dragstart(i) {
+      this.draggedTodo = i
+    },
+    drop(i) {
+      var dragstartTodos = this.todos.splice(this.draggedTodo, 1)[0]
+      this.todos.splice(i, 0, dragstartTodos)
+    },
 
   },
   created() {

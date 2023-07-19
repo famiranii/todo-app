@@ -1,59 +1,24 @@
 @import './base.css';
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-html {
-  font-size: 12px;
-  position: relative;
-}
-
-
-body {
-  font: var(--fw-normal) var(--base-font) var(--ff-sans);
-  background: var(--clr-page-bg) var(--img-bg) no-repeat 0% 0% / 100vw 30rem;
-  padding-top: 8rem;
-  width: min(85%, 54rem);
-  margin: auto;
-}
-
-
-
-html,
-body {
-  min-height: 100%;
-}
-
-ul {
-  list-style: none;
-}
-
-img {
-  user-select: none;
-}
-
-input,
-button {
-  font: inherit;
-  border: 0;
-  background: transparent;
-}
-
-input:focus,
-button:focus {
-  outline: 0;
-}
-
-button {
-  display: flex;
-  user-select: none;
+:root {
+  --ff-sans: 'Josefin Sans', sans-serif;
+  --base-font: 1.6rem;
+  --fw-normal: 400;
+  --fw-bold: 700;
+  --img-bg: url('./bg-desktop-dark.jpg');
+  --light-gray: hsl(0, 0%, 98%);
+  --dark-blue: hsl(235, 21%, 11%);
+  --dark-desaturated-blue: hsl(235, 24%, 19%);
+  --bright-blue: hsl(220, 98%, 61%);
+  --light-grayish-blue: hsl(234, 39%, 85%);
+  --clr-gb-3: hsl(234, 11%, 52%);
+  --clr-gb-4: hsl(237, 12%, 36%);
+  --clr-gb-5: hsl(233, 14%, 35%);
+  --clr-gb-6: hsl(235, 19%, 24%);
+  --clr-box-shadow: hsl(0, 0%, 0%, 0.1);
 }
 
 .card {
-  background-color: var(--clr-card-bg);
+  background-color: var(--dark-desaturated-blue);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -68,7 +33,7 @@ header.card {
 }
 
 header.card h1 {
-  color: var(--clr-white);
+  color: var(--light-gray);
   letter-spacing: 1.3rem;
   font-weight: 700;
   font-size: calc(var(--base-font) * 2);
@@ -80,7 +45,7 @@ header.card h1 {
 }
 
 .add .cb-container #add-btn {
-  color: var(--clr-gb-2);
+  color: var(--light-grayish-blue);
   font-size: var(--base-font);
   transition: color 0.3s ease;
   width: 100%;
@@ -94,7 +59,7 @@ header.card h1 {
 }
 
 .add .cb-container:hover {
-  background: var(--clr-blue);
+  background: var(--bright-blue);
 }
 
 .add .cb-container:active {
@@ -102,7 +67,7 @@ header.card h1 {
 }
 
 .add .cb-container:hover #add-btn {
-  color: var(--clr-white);
+  color: var(--light-gray);
 }
 .add .txt-container {
   flex: 1;
@@ -111,7 +76,7 @@ header.card h1 {
 .add .txt-container .txt-input {
   width: 100%;
   padding: 0.7rem 0;
-  color: var(--clr-gb-1);
+  color: var(--light-grayish-blue);
 }
 
 .add .txt-container .txt-input::placeholder {
@@ -147,25 +112,28 @@ header.card h1 {
 }
 
 .card .cb-container .cb-input:checked + .check {
-  background: url('./icon-check.svg'), linear-gradient(45deg, var(--clr-green), var(--clr-pink));
+  background: url('./icon-check.svg'),
+    linear-gradient(45deg, hsl(192, 100%, 67%), hsl(280, 87%, 65%));
   background-repeat: no-repeat;
   background-position: center;
 }
 
 .todos .card:first-child {
   border-radius: 0.5rem 0.5rem 0 0;
+  cursor: move;
 }
 
 .todos > * + * {
   border-top: 0.2rem solid var(--clr-gb-6);
+  cursor: move;
 }
 
 .item {
-  color: var(--clr-gb-2);
+  color: var(--light-grayish-blue);
 }
 
 .item:hover {
-  color: var(--clr-gb-1);
+  color: var(--light-grayish-blue);
 }
 
 .clear {
@@ -197,7 +165,7 @@ header.card h1 {
 }
 
 .stat .filter *:hover {
-  color: var(--clr-primary);
+  color: var(--light-gray);
 }
 
 .stat .corner:last-child {
@@ -205,13 +173,17 @@ header.card h1 {
 }
 
 .stat .corner button:hover {
-  color: var(--clr-primary);
+  color: var(--light-gray);
 }
 
 footer {
   margin: 4rem 0;
   text-align: center;
   color: var(--clr-gb-5);
+}
+
+.on {
+  color: var(--bright-blue);
 }
 
 @media (max-width: 599px) {
