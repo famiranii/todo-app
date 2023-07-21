@@ -5,7 +5,8 @@
                 class="cb-input">
             <div class="check"></div>
         </div>
-        <div class="item">{{ todo.title }}</div>
+        <del v-if="todo.isCompleted">{{ todo.title }}</del>
+        <span v-else class="item">{{ todo.title }}</span>
         <button @click="deleteItemIsClicked" class="clear">
             <img src="../assets/icon-cross.svg" alt="clear">
         </button>

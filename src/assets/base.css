@@ -1,4 +1,19 @@
-
+:root {
+  --ff-sans: 'Josefin Sans', sans-serif;
+  --base-font: 1.5rem;
+  --fw-normal: 400;
+  --fw-bold: 700;
+  --img-bg: url('./bg-desktop-dark.jpg');
+  --light-gray: hsl(0, 0%, 98%);
+  --dark-blue: hsl(235, 21%, 11%);
+  --light-grayish-blue: hsl(234, 39%, 85%);
+  --light-blue-hover: hsl(236, 33%, 92%);
+  --dark-grayish-blue: hsl(234, 11%, 52%);
+  --very-dark-grayish-blue: hsl(233, 14%, 35%);
+  --dark-desaturated-blue: hsl(235, 24%, 19%);
+  --bright-blue: hsl(220, 98%, 61%);
+  --clr-box-shadow: hsl(0, 0%, 0%, 0.1);
+}
 
 * {
   margin: 0;

@@ -1,10 +1,56 @@
 <template>
     <header class="card">
         <h1>TODO</h1>
-        <button id="theme-switcher">
-            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26">
-                <path fill="#FFF" fill-rule="evenodd"
-                    d="M13 21a1 1 0 011 1v3a1 1 0 11-2 0v-3a1 1 0 011-1zm-5.657-2.343a1 1 0 010 1.414l-2.121 2.121a1 1 0 01-1.414-1.414l2.12-2.121a1 1 0 011.415 0zm12.728 0l2.121 2.121a1 1 0 01-1.414 1.414l-2.121-2.12a1 1 0 011.414-1.415zM13 8a5 5 0 110 10 5 5 0 010-10zm12 4a1 1 0 110 2h-3a1 1 0 110-2h3zM4 12a1 1 0 110 2H1a1 1 0 110-2h3zm18.192-8.192a1 1 0 010 1.414l-2.12 2.121a1 1 0 01-1.415-1.414l2.121-2.121a1 1 0 011.414 0zm-16.97 0l2.121 2.12A1 1 0 015.93 7.344L3.808 5.222a1 1 0 011.414-1.414zM13 0a1 1 0 011 1v3a1 1 0 11-2 0V1a1 1 0 011-1z" />
-            </svg>
+        <button @click="themeSwitcherClicked" id="theme-switcher">
+            <img v-if="lightMode" src="../assets/icon-moon.svg" alt="moon">
+            <img v-else src="../assets/icon-sun.svg" alt="sun">
         </button>
-</header></template>
+    </header>
+</template>
+
+<script>
+export default {
+    data() {
+        return {
+            lightMode: localStorage.getItem('lightMode') === 'true'
+        }
+    },
+
+    methods: {
+        themeSwitcherClicked() {
+            this.lightMode = !this.lightMode
+            localStorage.setItem('lightMode', this.lightMode)
+            const body = document.querySelector('body')
+            const root = document.documentElement;
+            if (this.lightMode == true) {
+                root.style.setProperty('--dark-desaturated-blue', 'hsl(0, 0%, 98%)');
+                root.style.setProperty('--very-dark-grayish-blue', 'hsl(233, 11%, 84%)');
+                root.style.setProperty('--light-grayish-blue', 'hsl(235, 19%, 35%)');
+                root.style.setProperty('--light-blue-hover', 'hsl(235, 19%, 35%)');
+                body.classList.add('light')
+            } else {
+                root.style.removeProperty('--dark-desaturated-blue');
+                root.style.removeProperty('--very-dark-grayish-blue');
+                root.style.removeProperty('--light-grayish-blue');
+                root.style.removeProperty('--light-blue-hover');
+                body.classList.remove('light');
+            }
+        }
+    },
+    beforeCreate() {
+        this.lightMode = localStorage.getItem('lightMode')
+        const body = document.querySelector('body')
+        const root = document.documentElement;
+
+        if (this.lightMode === 'true') {
+            root.style.setProperty('--dark-desaturated-blue', 'hsl(0, 0%, 98%)');
+            root.style.setProperty('--very-dark-grayish-blue', 'hsl(233, 11%, 84%)');
+            root.style.setProperty('--light-grayish-blue', 'hsl(235, 19%, 35%)');
+            root.style.setProperty('--light-blue-hover', 'hsl(235, 19%, 35%)');
+            body.classList.add('light')
+        } else {
+            body.classList.remove('light')
+        }
+    }
+}
+</script>

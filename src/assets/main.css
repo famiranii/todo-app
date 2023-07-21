@@ -1,28 +1,12 @@
 @import './base.css';
-:root {
-  --ff-sans: 'Josefin Sans', sans-serif;
-  --base-font: 1.6rem;
-  --fw-normal: 400;
-  --fw-bold: 700;
-  --img-bg: url('./bg-desktop-dark.jpg');
-  --light-gray: hsl(0, 0%, 98%);
-  --dark-blue: hsl(235, 21%, 11%);
-  --dark-desaturated-blue: hsl(235, 24%, 19%);
-  --bright-blue: hsl(220, 98%, 61%);
-  --light-grayish-blue: hsl(234, 39%, 85%);
-  --clr-gb-3: hsl(234, 11%, 52%);
-  --clr-gb-4: hsl(237, 12%, 36%);
-  --clr-gb-5: hsl(233, 14%, 35%);
-  --clr-gb-6: hsl(235, 19%, 24%);
-  --clr-box-shadow: hsl(0, 0%, 0%, 0.1);
-}
+
 
 .card {
   background-color: var(--dark-desaturated-blue);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1.9rem 2rem;
+  padding: 2rem;
   gap: 2rem;
 }
 
@@ -62,12 +46,9 @@ header.card h1 {
   background: var(--bright-blue);
 }
 
-.add .cb-container:active {
-  transform: scale(0.95);
-}
 
 .add .cb-container:hover #add-btn {
-  color: var(--light-gray);
+  color: var(--light-blue-hover);
 }
 .add .txt-container {
   flex: 1;
@@ -80,14 +61,14 @@ header.card h1 {
 }
 
 .add .txt-container .txt-input::placeholder {
-  color: var(--clr-gb-5);
+  color: var(--very-dark-grayish-blue);
   font-weight: var(--fw-normal);
 }
 
 .card .cb-container {
   width: 2.5rem;
   height: 2.5rem;
-  border: 0.1rem solid var(--clr-gb-5);
+  border: 0.1rem solid var(--very-dark-grayish-blue);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -124,7 +105,7 @@ header.card h1 {
 }
 
 .todos > * + * {
-  border-top: 0.2rem solid var(--clr-gb-6);
+  border-top: 0.1rem solid var(--very-dark-grayish-blue);
   cursor: move;
 }
 
@@ -133,7 +114,7 @@ header.card h1 {
 }
 
 .item:hover {
-  color: var(--light-grayish-blue);
+  color: var(--light-blue-hover);
 }
 
 .clear {
@@ -148,14 +129,14 @@ header.card h1 {
 
 .stat {
   border-radius: 0 0 0.5rem 0.5rem;
-  border-top: 0.2rem solid var(--clr-gb-6);
+  border-top: 0.1rem solid var(--very-dark-grayish-blue);
   font-size: calc(var(--base-font) - 0.3rem);
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
 }
 
-.stat * {
-  color: var(--clr-gb-4);
+.stat * , del{
+  color: var(--dark-grayish-blue);
 }
 
 .stat .filter {
@@ -165,7 +146,7 @@ header.card h1 {
 }
 
 .stat .filter *:hover {
-  color: var(--light-gray);
+  color: var(--light-blue-hover);
 }
 
 .stat .corner:last-child {
@@ -173,13 +154,13 @@ header.card h1 {
 }
 
 .stat .corner button:hover {
-  color: var(--light-gray);
+  color: var(--light-blue-hover);
 }
 
 footer {
   margin: 4rem 0;
   text-align: center;
-  color: var(--clr-gb-5);
+  color: var(--very-dark-grayish-blue);
 }
 
 .on {
