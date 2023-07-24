@@ -1,6 +1,5 @@
 @import './base.css';
 
-
 .card {
   background-color: var(--dark-desaturated-blue);
   display: flex;
@@ -42,14 +41,6 @@ header.card h1 {
   transition: background 0.3s ease;
 }
 
-.add .cb-container:hover {
-  background: var(--bright-blue);
-}
-
-
-.add .cb-container:hover #add-btn {
-  color: var(--light-blue-hover);
-}
 .add .txt-container {
   flex: 1;
 }
@@ -77,6 +68,11 @@ header.card h1 {
   cursor: pointer;
 }
 
+.card .cb-btn:hover{
+  border: solid 2px ;
+  border-color: hsl(280, 87%, 65%);
+}
+
 .card .cb-container .cb-input {
   opacity: 0;
   cursor: pointer;
@@ -101,12 +97,13 @@ header.card h1 {
 
 .todos .card:first-child {
   border-radius: 0.5rem 0.5rem 0 0;
-  cursor: move;
+  cursor: pointer;
 }
 
-.todos > * + * {
+
+.todos > *  {
   border-top: 0.1rem solid var(--very-dark-grayish-blue);
-  cursor: move;
+  cursor: pointer;
 }
 
 .item {
@@ -135,7 +132,8 @@ header.card h1 {
   grid-template-columns: 1fr 1fr 1fr;
 }
 
-.stat * , del{
+.stat *,
+del {
   color: var(--dark-grayish-blue);
 }
 

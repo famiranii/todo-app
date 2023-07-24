@@ -1,6 +1,6 @@
 <template>
     <li class="card">
-        <div @click="handleCompeleted"  class="cb-container">
+        <div @click="handleCompeleted"  class="cb-container cb-btn">
             <input v-model="isCompleted" :checked="todo.isCompleted ? true : null" type="checkbox"
                 class="cb-input">
             <div class="check"></div>
@@ -32,6 +32,7 @@ export default {
         handleCompeleted() {
             this.isCompleted = !this.isCompleted
             this.newTodo.isCompleted = this.isCompleted
+            console.log(this.newTodo);
             axios.put(`http://localhost:3000/todos/${this.todo.id}`, this.newTodo)
                 .then(response => {
                     console.log(response);

@@ -68,4 +68,5 @@ button:focus {
 button {
   display: flex;
   user-select: none;
+  cursor: pointer;
 }

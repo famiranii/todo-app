@@ -3,9 +3,7 @@
 
   <main>
     <div class="card add">
-      <div class="cb-container">
-        <button @click="addBtnClicked" id="add-btn">+</button>
-      </div>
+      <div class="cb-container"></div>
       <div class="txt-container">
         <input @keypress.enter="addBtnClicked" v-model="title" type="text" class="txt-input"
           placeholder="Create a new todo..." spellcheck="false" autocomplete="off" />
@@ -13,8 +11,8 @@
     </div>
 
     <ul class="todos">
-      <addedTodos @deleteItemIsClicked="deleteItemIsClicked" v-for="(todo, index) in filteredTodo" :key="index" :todo="todo"
-        draggable="true" @dragover.prevent @dragstart="dragstart(index)" @drop="drop(index)" />
+      <addedTodos @deleteItemIsClicked="deleteItemIsClicked" v-for="(todo, index) in filteredTodo" :key="index"
+        :todo="todo" draggable="true" @dragover.prevent @dragstart="dragstart(index)" @drop="drop(index)" />
     </ul>
 
     <div class="card stat">
@@ -48,7 +46,8 @@ export default {
       title: '',
       todos: [],
       draggedTodo: -1,
-      showTodos: "all"
+      showTodos: "all",
+      counter: 0,
     }
   },
   computed: {
@@ -58,26 +57,37 @@ export default {
     filteredTodo() {
       if (this.showTodos === 'all') {
         return this.todos
-      }else if (this.showTodos==='active') {
-        return this.todos.filter(todo=>todo.isCompleted==true)
-      }else{
-        return this.todos.filter(todo=>todo.isCompleted==false)
+      } else if (this.showTodos === 'active') {
+        return this.todos.filter(todo => todo.isCompleted == false)
+      } else {
+        return this.todos.filter(todo => todo.isCompleted == true)
       }
     }
   },
   methods: {
     addBtnClicked() {
-      const id = Math.floor(Math.random() * 100)
+      this.counter++
+      const id = this.counter
       const todo = { id: id, title: this.title, isCompleted: false }
+      for (let index = 0; index < this.todos.length; index++) {
+        const element = this.todos[index].title;
+        if (element == this.title) {
+          return
+        }
+      }
       this.todos.push(todo)
+      if (this.title === '') {
+        return
+      } else {
+        axios.post('http://localhost:3000/todos', todo)
+          .then(response => {
+            console.log(response);
+          })
+          .catch(error => {
+            console.log(error);
+          })
+      }
       this.title = ''
-      axios.post('http://localhost:3000/todos', todo)
-        .then(response => {
-          console.log(response);
-        })
-        .catch(error => {
-          console.log(error);
-        })
     },
     deleteItemIsClicked(id) {
       this.todos = this.todos.filter(todo => todo.id !== id)
@@ -110,8 +120,8 @@ export default {
       this.draggedTodo = i
     },
     drop(i) {
-      var dragstartTodos = this.todos.splice(this.draggedTodo, 1)[0]
-      this.todos.splice(i, 0, dragstartTodos)
+      var dragged = this.todos.splice(this.draggedTodo, 1)[0]
+      this.todos.splice(i, 0, dragged)
     },
 
   },
