@@ -16,7 +16,8 @@
     </ul>
 
     <div class="card stat">
-      <p class="corner"><span id="items-left">{{ isCompletedCount }}</span> items left</p>
+      <p v-if="isCompletedCount>1" class="corner"><span id="items-left">{{ isCompletedCount }}</span> items left</p>
+      <p v-else class="corner"><span id="items-left">{{ isCompletedCount }}</span> item left</p>
       <div class="filter">
         <button :class="{ on: showTodos == 'all' }" @click="this.showTodos = 'all'">All</button>
         <button :class="{ on: showTodos == 'active' }" @click="this.showTodos = 'active'">Active</button>
