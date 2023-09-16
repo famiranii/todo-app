@@ -14,7 +14,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 export default {
     props: {
         todo: Object
@@ -31,17 +30,21 @@ export default {
         },
         handleCompeleted() {
             this.isCompleted = !this.isCompleted
-            this.newTodo.isCompleted = this.isCompleted
-            console.log(this.newTodo);
-            axios.put(`http://localhost:3000/todos/${this.todo.id}`, this.newTodo)
-                .then(response => {
-                    console.log(response);
-                })
-                .catch(error => {
-                    console.error(error);
-                });
+            this.$emit("handleCompeleted",this.isCompleted,this.todo.id)
+            // this.newTodo.isCompleted = this.isCompleted
+            // console.log(this.newTodo);
+            // axios.put(`http://localhost:3000/todos/${this.todo.id}`, this.newTodo)
+            //     .then(response => {
+            //         console.log(response);
+            //     })
+            //     .catch(error => {
+            //         console.error(error);
+            //     });
 
         }
+    },
+    created(){
+        console.log(this.todo);
     }
 }
 </script>
