@@ -106,6 +106,7 @@ export default {
           .then((response) => {
             console.log(response)
             this.title = ''
+            this.todos=[]
             this.getTodos()
           })
           .catch((error) => {
@@ -126,7 +127,7 @@ export default {
         })
     },
     clearCompleted() {
-      var newTodos = this.todos.filter((todo) => todo.isCompleted == true)
+      var newTodos = this.todos.filter((todo) => todo.isCompleted === true)
       var ids = newTodos.map((element) => {
         return element.id
       })
@@ -161,9 +162,7 @@ export default {
       axios
         .get('http://localhost:3000/todos')
         .then((response) => {
-          response.data.forEach((element) => {
-            this.todos.push(element)
-          })
+          this.todos=response.data.reverse()
         })
         .catch((error) => {
           console.error(error)
